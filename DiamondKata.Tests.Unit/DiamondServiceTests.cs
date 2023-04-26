@@ -1,6 +1,7 @@
 using DiamondKata.Console;
 using FluentAssertions;
 using System.Collections.Generic;
+using System.Text;
 using Xunit;
 
 namespace DiamondKata.Tests.Unit;
@@ -18,5 +19,17 @@ public class DiamondServiceTests
     {
         var result = _diamondService.RenderDiamond('A');
         result.Should().Be("A");
+    }
+
+    [Fact]
+    public void RenderDiamond_WhenB_ReturnABDiamond()
+    {
+        var expectedDiamond = new StringBuilder();
+        expectedDiamond.AppendLine(" A ");
+        expectedDiamond.AppendLine("B B");    
+        expectedDiamond.AppendLine(" A ");
+
+        var result = _diamondService.RenderDiamond('B');
+        result.Should().Be(expectedDiamond.ToString());
     }
 }
