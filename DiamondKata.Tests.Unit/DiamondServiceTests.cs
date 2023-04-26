@@ -15,20 +15,20 @@ public class DiamondServiceTests
     }
 
     [Fact]
-    public void RenderDiamond_WhenA_ReturnA()
+    public void RenderDiamond_WhenA_ReturnsA()
     {
         // Arrange
-        var expected = "A";
+        var expectedDiamond = "A";
 
         //Act
-        var result = _diamondService.RenderDiamond('A');
+        var actualDiamond = _diamondService.RenderDiamond('A');
 
         //Assert
-        result.Should().Be(expected);
+        actualDiamond.Should().Be(expectedDiamond);
     }
 
     [Fact]
-    public void RenderDiamond_WhenB_ReturnABDiamond()
+    public void RenderDiamond_WhenB_ReturnsCorrectABDiamond()
     {
         // Arrange
         var expectedDiamond = new StringBuilder();
@@ -37,11 +37,58 @@ public class DiamondServiceTests
         expectedDiamond.AppendLine(" A ");
 
         //Act
-        var result = _diamondService.RenderDiamond('B');
+        var actualDiamond = _diamondService.RenderDiamond('B');
 
         //Assert
-        result.Should().Be(expectedDiamond.ToString());
+        actualDiamond.Should().Be(expectedDiamond.ToString());
     }
+
+    [Fact]
+    public void RenderDiamond_WhenC_ReturnsCorrectABCDiamond()
+    {
+        //Arrange
+        var expectedDiamond = new StringBuilder();
+        expectedDiamond.AppendLine("  A  ");
+        expectedDiamond.AppendLine(" B B ");
+        expectedDiamond.AppendLine("C   C");
+        expectedDiamond.AppendLine(" B B ");
+        expectedDiamond.AppendLine("  A  ");
+
+        //Act
+        var actualDiamond = _diamondService.RenderDiamond('C');
+
+        //Assert
+        actualDiamond.Should().Be(expectedDiamond.ToString());
+    }
+
+    [Fact]
+    public void RenderDiamond_WhenH_ReturnsCorrectHDiamond()
+    {
+        //Arrange
+        var expectedDiamond = new StringBuilder();
+        expectedDiamond.AppendLine("       A       ");
+        expectedDiamond.AppendLine("      B B      ");
+        expectedDiamond.AppendLine("     C   C     ");
+        expectedDiamond.AppendLine("    D     D    ");
+        expectedDiamond.AppendLine("   E       E   ");
+        expectedDiamond.AppendLine("  F         F  ");
+        expectedDiamond.AppendLine(" G           G ");
+        expectedDiamond.AppendLine("H             H");
+        expectedDiamond.AppendLine(" G           G ");
+        expectedDiamond.AppendLine("  F         F  ");
+        expectedDiamond.AppendLine("   E       E   ");
+        expectedDiamond.AppendLine("    D     D    ");
+        expectedDiamond.AppendLine("     C   C     ");
+        expectedDiamond.AppendLine("      B B      ");
+        expectedDiamond.AppendLine("       A       ");
+
+        //Act
+        var actualDiamond = _diamondService.RenderDiamond('H');
+
+        //Assert
+        actualDiamond.Should().Be(expectedDiamond.ToString());
+    }
+
 
     [Fact]
     public void RenderRow_WithMinimumValues_ReturnsA()
@@ -71,6 +118,52 @@ public class DiamondServiceTests
         var actualRow = _diamondService.RenderRow(numberOfRows, rowIndex);
 
         // Assert
-        Assert.Equal(expectedRow, actualRow);
+        actualRow.Should().Be(expectedRow);
     }
+
+    [Fact]
+    public void RenderRow_RowAAndMultipleRows_ReturnsAWithCorrectExternalPadding()
+    {
+        // Arrange
+        int numberOfRows = 5;
+        int rowIndex = 0;
+        string expectedRow = "    A    ";
+
+        // Act
+        string actualRow = _diamondService.RenderRow(numberOfRows, rowIndex);
+
+        // Assert
+        actualRow.Should().Be(expectedRow);
+    }
+
+    [Fact]
+    public void RenderRow_WithMaximumValues_ReturnsExpectedRowZWithCorrectInternalPaddingAndNoExternalPadding()
+    {
+        // Arrange
+        int numberOfRows = 26;
+        int rowIndex = 25;
+        string expectedRow = "Z                                                 Z";
+
+        // Act
+        string actualRow = _diamondService.RenderRow(numberOfRows, rowIndex);
+
+        // Assert
+        actualRow.Should().Be(expectedRow);
+    }
+
+    [Fact]
+    public void RenderRow_With5RowsAndIndex2_ReturnsCRowWithCorrectInternalAndExternalPadding()
+    {
+        // Arrange
+        int numberOfRows = 5;
+        int rowIndex = 2;
+        string expectedRow = "  C   C  ";
+
+        // Act
+        string actualRow = _diamondService.RenderRow(numberOfRows, rowIndex);
+
+        // Assert
+        actualRow.Should().Be(expectedRow);
+    }
+
 }
