@@ -7,22 +7,26 @@ Given a character from the alphabet, print a diamond of its output with that cha
 
 Examples
 
-    > diamond.exe A
+    > diamond.exe
+	> Enter your Character for the Diamond: A
          A
 
-    > diamond.exe B
+    > diamond.exe 
+	> Enter your Character for the Diamond: B
            A
           B B
            A
 
-    > diamond.exe C
+    > diamond.exe 
+	> Enter your Character for the Diamond: C
             A
            B B
           C   C
            B B
             A
         
-    > diamond.exe H
+    > diamond.exe 
+	> Enter your Character for the Diamond: H
             A       
            B B      
           C   C     
@@ -66,3 +70,16 @@ Before Coding and testing, I analyzed the problem and requirements and concluded
 Based on above I think we need a method that Generate Diamond row by row. In each row we need to calculate and add how much external and internal padding we need. 
 As bottom half is just mirror of top half we probably just need something that we can repeat in inverse order.
 As number of rows is odd one of the half need to include the central row and the other does not.
+
+This should follow a TDD approach that you can see in commit history:
+1. First step is to write test and code that just display A
+2. Second step is to write test and code that generate a diamond of 2 letters A B
+3. Third step is to generate a row for specific char with right external/internal padding. Generate Diamond A B using the generate row method.
+4. Fourth step is to write test and code that generate a diamond of any size. This code may have some duplicated logic and not optimal
+5. Fifth step is to Refactor the code, Remove duplications, optimize, etc
+6. Sixth step is to do some edge cases: Not letter, lowercase letter, 'Z' (biggest diamond), etc.
+
+Notes: 
+- In a real production project you would have a Core/BusinessLogic project separated from the command line UI and would have used Interfaces for the service and use DI but as this is small kata test dont think any of that is necessary.
+- In a real production project may not have set GenerateRow as public but is public just for purpose of showing the TDD steps in detail.
+

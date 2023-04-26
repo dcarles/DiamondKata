@@ -14,6 +14,44 @@ public class DiamondServiceTests
         _diamondService = new DiamondService();
     }
 
+    [Theory]
+    [InlineData('0')]
+    [InlineData(' ')]
+    [InlineData('&')]
+    [InlineData('%')]
+    [InlineData('1')]
+    [InlineData('@')]
+    public void RenderDiamond_WhenNotLetter_ReturnsemptyString(char input)
+    {
+        // Arrange
+        var expectedDiamond = string.Empty;
+
+        //Act
+        var actualDiamond = _diamondService.RenderDiamond(input);
+
+        //Assert
+        actualDiamond.Should().Be(expectedDiamond);
+    }
+
+    [Theory]
+    [InlineData('c')]
+    [InlineData('a')]
+    [InlineData('b')]
+    [InlineData('h')]
+    [InlineData('z')]   
+    public void RenderDiamond_WhenLowercase_ReturnsUpperCaseDiamond(char input)
+    {
+        // Arrange
+        var expectedDiamond = _diamondService.RenderDiamond(char.ToUpper(input));
+
+        //Act
+        var actualDiamond = _diamondService.RenderDiamond(input);
+
+        //Assert
+        actualDiamond.Should().Be(expectedDiamond);
+    }
+
+
     [Fact]
     public void RenderDiamond_WhenA_ReturnsA()
     {
@@ -89,6 +127,72 @@ public class DiamondServiceTests
         //Assert
         actualDiamond.Should().Be(expectedDiamond.ToString());
     }
+
+    [Fact]
+    public void RenderDiamond_WhenZ_ReturnsBiggestDiamond()
+    {
+        //Arrange
+        var expectedDiamond = new StringBuilder();
+        expectedDiamond.AppendLine("                         A                         ");
+        expectedDiamond.AppendLine("                        B B                        ");
+        expectedDiamond.AppendLine("                       C   C                       ");
+        expectedDiamond.AppendLine("                      D     D                      ");
+        expectedDiamond.AppendLine("                     E       E                     ");
+        expectedDiamond.AppendLine("                    F         F                    ");
+        expectedDiamond.AppendLine("                   G           G                   ");
+        expectedDiamond.AppendLine("                  H             H                  ");
+        expectedDiamond.AppendLine("                 I               I                 ");
+        expectedDiamond.AppendLine("                J                 J                ");
+        expectedDiamond.AppendLine("               K                   K               ");
+        expectedDiamond.AppendLine("              L                     L              ");
+        expectedDiamond.AppendLine("             M                       M             ");
+        expectedDiamond.AppendLine("            N                         N            ");
+        expectedDiamond.AppendLine("           O                           O           ");
+        expectedDiamond.AppendLine("          P                             P          ");
+        expectedDiamond.AppendLine("         Q                               Q         ");
+        expectedDiamond.AppendLine("        R                                 R        ");
+        expectedDiamond.AppendLine("       S                                   S       ");
+        expectedDiamond.AppendLine("      T                                     T      ");
+        expectedDiamond.AppendLine("     U                                       U     ");
+        expectedDiamond.AppendLine("    V                                         V    ");
+        expectedDiamond.AppendLine("   W                                           W   ");
+        expectedDiamond.AppendLine("  X                                             X  ");
+        expectedDiamond.AppendLine(" Y                                               Y ");
+        expectedDiamond.AppendLine("Z                                                 Z");
+        expectedDiamond.AppendLine(" Y                                               Y ");
+        expectedDiamond.AppendLine("  X                                             X  ");
+        expectedDiamond.AppendLine("   W                                           W   ");
+        expectedDiamond.AppendLine("    V                                         V    ");
+        expectedDiamond.AppendLine("     U                                       U     ");
+        expectedDiamond.AppendLine("      T                                     T      ");
+        expectedDiamond.AppendLine("       S                                   S       ");
+        expectedDiamond.AppendLine("        R                                 R        ");
+        expectedDiamond.AppendLine("         Q                               Q         ");
+        expectedDiamond.AppendLine("          P                             P          ");
+        expectedDiamond.AppendLine("           O                           O           ");
+        expectedDiamond.AppendLine("            N                         N            ");
+        expectedDiamond.AppendLine("             M                       M             ");
+        expectedDiamond.AppendLine("              L                     L              ");
+        expectedDiamond.AppendLine("               K                   K               ");
+        expectedDiamond.AppendLine("                J                 J                ");
+        expectedDiamond.AppendLine("                 I               I                 ");
+        expectedDiamond.AppendLine("                  H             H                  ");
+        expectedDiamond.AppendLine("                   G           G                   ");
+        expectedDiamond.AppendLine("                    F         F                    ");
+        expectedDiamond.AppendLine("                     E       E                     ");
+        expectedDiamond.AppendLine("                      D     D                      ");
+        expectedDiamond.AppendLine("                       C   C                       ");
+        expectedDiamond.AppendLine("                        B B                        ");
+        expectedDiamond.AppendLine("                         A                         ");
+
+
+        //Act
+        var actualDiamond = _diamondService.RenderDiamond('Z');
+
+        //Assert
+        actualDiamond.Should().Be(expectedDiamond.ToString());
+    }
+
 
 
     [Fact]

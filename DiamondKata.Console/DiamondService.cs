@@ -6,6 +6,18 @@ public class DiamondService
 {
     public string RenderDiamond(char c)
     {
+        //If is not a letter return empty string
+        if (!char.IsLetter(c))
+        {
+            return string.Empty;
+        }
+
+        //If is not uppercase, make it uppercase
+        if (!char.IsUpper(c))
+        {
+            c = char.ToUpper(c);
+        }
+
         //The total number of rows/letters is calculated by substracting the int value of 'A'
         //from the int value of max one passed argument plus 1
         int numberOfRows = c - 'A' + 1;
