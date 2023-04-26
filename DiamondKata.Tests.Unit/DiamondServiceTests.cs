@@ -18,13 +18,14 @@ public class DiamondServiceTests
     public void RenderDiamond_WhenA_ReturnsA()
     {
         // Arrange
-        var expectedDiamond = "A";
+        var expectedDiamond = new StringBuilder();
+        expectedDiamond.AppendLine("A");
 
         //Act
         var actualDiamond = _diamondService.RenderDiamond('A');
 
         //Assert
-        actualDiamond.Should().Be(expectedDiamond);
+        actualDiamond.Should().Be(expectedDiamond.ToString());
     }
 
     [Fact]

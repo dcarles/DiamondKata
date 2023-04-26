@@ -6,29 +6,30 @@ public class DiamondService
 {
     public string RenderDiamond(char c)
     {
-
-        if (c == 'A')
-            return RenderRow(1, 0);
-
-        var diamond = new StringBuilder();
-
         //The total number of rows/letters is calculated by substracting the int value of 'A'
         //from the int value of max one passed argument plus 1
         int numberOfRows = c - 'A' + 1;
 
+        //Get all diamond rows
+        var lines = GetRows(numberOfRows);
+
+
+        return string.Join(Environment.NewLine, lines) + Environment.NewLine;
+
+    }
+
+    private IEnumerable<string> GetRows(int numberOfRows)
+    {
+        if (numberOfRows == 1)
+        {
+            yield return RenderRow(1, 0);
+            yield break;
+        }
+
         //top half diamond (include middle row)
-        for (var i = 0; i < numberOfRows; i++)
-        {
-            diamond.AppendLine(RenderRow(numberOfRows, i));
-        }
-
+        for (var i = 0; i < numberOfRows; i++) yield return RenderRow(numberOfRows, i);
         //bottom half diamond
-        for (var i = numberOfRows - 2; i >= 0; i--)
-        {
-            diamond.AppendLine(RenderRow(numberOfRows, i));
-        }
-
-        return diamond.ToString();
+        for (var i = numberOfRows - 2; i >= 0; i--) yield return RenderRow(numberOfRows, i);
     }
 
     public string RenderRow(int numberOfRows, int rowIndex)
